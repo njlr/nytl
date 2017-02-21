@@ -20,49 +20,6 @@
 
 namespace nytl::mat {
 
-/// The concept matrix types have to fulfill:
-/// struct Matrix {
-/// public:
-/// 	using Size = ...; // usually std::size_t. Must be convertible from/to int.
-/// 	using Value = ...; // value type, mathematical field
-/// 	using RowType = ...; // Vector type able to hold one row of this matrix
-/// 	using ColType = ...; // Vector type able to hold one column of this matrix
-///
-/// 	// Rebinds the Matrix implementation
-/// 	template<Size MaxR, Size MaxC, typename T> using Rebind = ...;
-///
-/// 	// dimensions of the matrix. Might be symbolic constants
-/// 	static constexpr Size rowDim = ..;
-/// 	static constexpr Size colDim = ..;
-///
-/// 	// creates a matrix for the given rows and cols.
-/// 	static Matrix create(Size rows, Size cols);
-///
-/// public:
-/// 	// matrix[r][c] must return a reference to the value of matrix in row r and column c.
-///  	auto operator[](Size); // must return some kind of referencing vector.
-///  	const auto operator[](Size) const; // must return some kind of referencing vector.
-///
-/// 	Size rows() const; // the number of rows
-/// 	Size cols() const; // the number of columns
-/// };
-///
-/// // NOTE: As specified in the Vector concept, vectors are interpreted column vectors.
-/// // The matrix vector multiplication operators must be implemented this way.
-/// // Invalid operations (such as multiply 3x2 matrix with 4x4 matrix) should not be implemented
-/// // or throw an exception.
-///
-/// auto operator*(Value, Matrix);
-/// auto operator*(Matrix, Matrix); // default matrix multiplication
-/// auto operator*(Matrix, Vector); // multiplication of matrix with vector
-/// auto operator*(Vector, Matrix); // multiplication of vector with 1-row matrix
-/// auto operator+(Matrix, Matrix);
-/// auto operator-(Matrix, Matrix);
-/// bool operator==(Matrix, Matrix);
-/// bool operator!=(Matrix, Matrix);
-///
-/// For an example Matrix implementation: nytl/mat.hpp: [nytl::Mat]().
-
 /// \brief Prints the given matrix with numerical values to the given ostream.
 /// If this function is used, header <ostream> must be included.
 /// This function does not implement operator<< since this operator should only implemented
@@ -509,7 +466,7 @@ constexpr auto luEvaluate(const M& l, const M& u, const V& b)
 	for(auto i = 0u; i < d.size(); ++i) {
 		d[i] = b[i];
 		for(auto j = 0u; j < i; ++j)
-			d[i] = std::fma(-l[i][j], d[j], d[i]);
+			d[i] += -l[i][j] * d[j];
 
 		d[i] /= l[i][i];
 	}
@@ -518,7 +475,7 @@ constexpr auto luEvaluate(const M& l, const M& u, const V& b)
 	for(auto i = x.size(); i-- > 0; ) {
 		x[i] = d[i];
 		for(auto j = i + 1; j < x.size(); ++j)
-			x[i] = std::fma(-u[i][j], x[j], x[i]);
+			x[i] += -u[i][j] * x[j];
 
 		x[i] /= u[i][i];
 	}

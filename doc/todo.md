@@ -7,6 +7,8 @@ TODO for nytl
 
 - vecOps: compile time error for complex numbers in non-supporting operations
 	- e.g. dot&angle: they might not behave as expected
+		- abolish field traits? Just make it possible for real numbers at all?
+		- or provide specializations for complex vectors and stuff?
 - vec rework (see associated branch) [C++17]
 	- make operators even more explicit, dont allow vec2 + vec3!
 

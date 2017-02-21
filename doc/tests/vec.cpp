@@ -13,8 +13,8 @@
 // TODO: test component-wise (nytl::vec::cw) operations
 // TODO: more testvectors, use other sizes and types
 
-// NOTE: for a real test, uncomment the should not compile statements
-// one-by-one and assure that they not compile
+// NOTE: for complete testing, uncomment the should not compile statements
+// one-by-one and assure that they do not compile
 
 using namespace nytl;
 

@@ -21,12 +21,6 @@ struct FullPrecisionField {
 	using type = double;
 };
 
-/// FullPrecisionField specialization for complex numbers.
-template<typename T>
-struct FullPrecisionField<std::complex<T>> {
-	using type = std::complex<double>;
-};
-
 /// \brief Specifies traits of a mathematical field
 /// Should be specialized for used custom fields to make the various nytl operations work.
 /// For custom fields, specializations must common mathematical operations (if available),
