@@ -7,3 +7,8 @@ bin/
 .clang_complete
 *.exe
 *.out
+/buck-out/
+/.buckd/
+/buckaroo/
+.buckconfig.local
+BUCKAROO_DEPS

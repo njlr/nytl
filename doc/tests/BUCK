@@ -1,0 +1,25 @@
+cxx_binary(
+  name = 'callback',
+  srcs = [
+    'callback.cpp',
+  ],
+  compiler_flags = [
+    '-std=c++14',
+  ],
+  deps = [
+    '//:nytl',
+  ],
+)
+
+cxx_binary(
+  name = 'vec',
+  srcs = [
+    'vec.cpp',
+  ],
+  compiler_flags = [
+    '-std=c++14',
+  ],
+  deps = [
+    '//:nytl',
+  ],
+)
